@@ -12,7 +12,7 @@ Grade = namedtuple('Grade', ['student_id', 'exercise_id', 'result'])
 Grid = namedtuple('Grid', ['exercises_axis', 'students_axis'])
 
 
-def record_grade(grid, grade):
+def call_gspread(grid, grade):
     # TODO: error handling
     # HACK: Sheets indexes from 1 ... this will cause bugs
     row = grid.students_axis.index(grade.student_id) + 1
@@ -26,7 +26,11 @@ def get_grid():
     return Grid(exercises_axis=exercises, students_axis=students)
 
 
-if __name__ == '__main__':
-    grade = Grade('justin-moen', 'lesson-2', 'pass')
+def record_in_google_sheets(exercise_id, outcome):
+    grade = Grade('justin-moen', exercise_id, outcome)
     grid = get_grid()
-    record_grade(grid, grade)
+    call_gspread(grid, grade)
+
+
+if __name__ == '__main__':
+    record_in_google_sheets()
