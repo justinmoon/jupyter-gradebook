@@ -19,7 +19,7 @@ def record_grade(grid, grade):
     col = grid.exercises_axis.index(grade.exercise_id) + 1
     wks.update_cell(row, col, grade.result)
 
-def grid():
+def get_grid():
     # A hack. wks.find('query') was causing some weird error ...
     exercises = wks.row_values(1)
     students = wks.col_values(1)
@@ -28,4 +28,5 @@ def grid():
 
 if __name__ == '__main__':
     grade = Grade('justin-moen', 'lesson-2', 'pass')
-    record_grade(grid(), grade)
+    grid = get_grid()
+    record_grade(grid, grade)
